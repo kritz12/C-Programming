@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<stdbool.h>
+using namespace std;
+
+#define INF 9999
+// graph contains 5 vertices
+#define V 5
+// an array G that stores adjacency matrix for input graph
+int G[V][V] ={
+    {0, 9, 75, 0, 0},
+    {9, 0, 95, 19, 42},
+    {75, 95, 0, 51, 66},
+    {0, 19, 51, 0, 31},
+    {0, 42, 66, 31, 0}};
+
+int main ()
+{
+int no_edge;            // number of edge
+
+  // mst_vertex - array to track vertices selected for spanning tree
+int selected[V];
+
+ // set selected false initially
+memset(selected, false, sizeof (selected));
+
+ // set number of edge to 0
+no_edge = 0;
+
+   //let 0th vertex be the first to be selected
+selected[0] = true;
+int x;            //  row
+int y;            //  col
+
+   // print details of MST
+printf("Edge:Weight\n");
+while (no_edge < V -1)
+{
+  //Prim's algorithm code
+int min = INF;
+ x = 0;
+ y = 0;
+
+for (int i=0;i<V;i++)
+{
+if (selected[i])
+{
+for (int j=0;j<V;j++)
+{
+if (!selected[j] && G[i][j])
+{ // not in mst_vertex and there is an edge
+if (min>G[i][j])
+{
+min = G[i][j];
+	      x = i;
+	      y = j;
+	  }
+	 }
+	}
+       }
+      }
+printf("%d -%d :%d\n",x,y,G[x][y]);
+selected[y] = true;
+no_edge++;
+    }
+return 0;
+}
